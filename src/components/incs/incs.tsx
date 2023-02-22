@@ -24,8 +24,8 @@ export function AddTask() {
     const newTask: task = {
       id: crypto.randomUUID(),
       completed: false,
-      content: task,
-      collection: collection,
+      content: task.trim(),
+      collection: collection.trim(),
     };
 
     addTask(newTask);
@@ -134,33 +134,31 @@ export function TodoList({ tasks }: { tasks: tasks }) {
 
   return (
     <article>
-      <aside>
-        <button onClick={handleView} className="link">
-          Tout
-        </button>
-        <button onClick={handleView} className="link">
-          Fait
-        </button>
-        <button onClick={handleView} className="link">
-          À faire
-        </button>
-      </aside>
+      <>
+        <aside>
+          <button onClick={handleView} className="link">
+            Tout
+          </button>
+          <button onClick={handleView} className="link">
+            Fait
+          </button>
+          <button onClick={handleView} className="link">
+            À faire
+          </button>
+        </aside>
 
-      {tasks.length > 0 ? (
         <ul>
           {todoList.map((task) => (
             <Task key={task.id} task={task} />
           ))}
         </ul>
-      ) : (
-        <h3>Aucune Tâches 🥱</h3>
-      )}
 
-      <aside>
-        <button onClick={deleteAll} className="link">
-          Supprimer
-        </button>
-      </aside>
+        <aside>
+          <button onClick={deleteAll} className="link">
+            Supprimer
+          </button>
+        </aside>
+      </>
     </article>
   );
 }

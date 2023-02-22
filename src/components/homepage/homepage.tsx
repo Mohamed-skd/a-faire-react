@@ -9,7 +9,14 @@ export default function HomePage() {
   return (
     <main id="homemain">
       <section>
-        <TodoList tasks={todoList} />
+        {todoList.length > 0 ? (
+          <>
+            <h2>Toute les tâches</h2>
+            <TodoList tasks={todoList} />
+          </>
+        ) : (
+          <h2>Aucune Tâches.</h2>
+        )}
       </section>
     </main>
   );

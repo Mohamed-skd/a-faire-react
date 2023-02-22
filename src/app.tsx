@@ -12,6 +12,7 @@ import Error, { AddTask } from "./components/incs/incs.js";
 import PageNav from "./components/incs/navs.js";
 import { navStore, task, taskStore } from "./utils/ts/types.js";
 import "./style.scss";
+import Collection from "./components/collections/collections.js";
 
 function Page() {
   return (
@@ -31,6 +32,7 @@ export const router = createBrowserRouter(
     <Route path="/" element={<Page />} errorElement={<Error />}>
       <Route errorElement={<Error />}>
         <Route index element={<HomePage />} />
+        <Route path={`collection/:id`} element={<Collection />} />
       </Route>
     </Route>
   )
