@@ -1,0 +1,60 @@
+#page-header {
+  #toggle-page-nav {
+    position: relative;
+    z-index: 100;
+    @media (width > 40rem) {
+      display: none;
+    }
+
+    button {
+      position: relative;
+      float: right;
+      width: 2rem;
+      border-radius: 0.4rem;
+      background: repeating-linear-gradient(black 0 20%, transparent 20% 40%);
+      transition: all 0.2s;
+      &.active {
+        background: linear-gradient(
+          135deg,
+          transparent 40%,
+          black 40% 50%,
+          transparent 50%
+        );
+
+        &::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(
+            45deg,
+            transparent 50%,
+            black 50% 60%,
+            transparent 60%
+          );
+        }
+      }
+    }
+  }
+}
+
+#add-task {
+  form {
+    display: grid;
+    gap: 0.4rem;
+    margin: auto;
+    padding-inline: 0.4rem;
+    max-width: 40rem;
+    height: 100%;
+    @media (width>40rem) {
+      place-content: center;
+      grid-template-columns: 2fr 1fr 1fr;
+    }
+
+    & > * {
+      padding: 0.4rem;
+      width: 100%;
+      font-weight: bold;
+      text-align: center;
+    }
+  }
+}

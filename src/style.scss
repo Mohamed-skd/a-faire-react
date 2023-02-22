@@ -3,8 +3,11 @@
 // GLOBAL COMPONENTS
 // display
 body > div {
-  display: flow-root;
+  overflow: hidden;
+  display: grid;
+  gap: 1rem;
   min-height: 100vh;
+  grid-template: repeat(12, 1fr) / repeat(2, 1fr) 16rem;
   background-color: hsl(var(--clr-white), 0.2);
   @media (prefers-color-scheme: dark) {
     --color: var(--clr), 10%, 20%;
@@ -21,24 +24,58 @@ body > div {
     }
   }
 
+  & > * {
+    background-color: hsl(var(--clr-white), 0.6);
+    @media (prefers-color-scheme: dark) {
+      background-color: hsl(var(--clr-black), 0.6);
+    }
+  }
+
   & > header {
+    padding: 2rem;
     display: flow-root;
+    grid-area: 1/1/3/4;
+    @media (width>40rem) {
+      grid-area: 1/1/3/3;
+    }
+  }
+
+  & > aside {
+    grid-area: 3/1/4/4;
+    @media (width>40rem) {
+      grid-area: 3/1/4/3;
+    }
+  }
+
+  & > nav {
+    grid-area: 1/3/12/4;
+    translate: 100%;
+    transition: all 0.2s;
+    @media (width>40rem) {
+      translate: 0;
+    }
+    &.visible {
+      translate: 0;
+    }
   }
 
   & > main {
     display: flow-root;
-    margin: 2rem auto;
+    grid-area: 4/1/12/4;
+    @media (width>40rem) {
+      grid-area: 4/1/12/3;
+    }
   }
   section {
     display: flow-root;
-    margin: 1rem auto;
+    margin: 0.6rem auto;
     padding: 0.4rem;
     max-width: 80rem;
   }
 
   & > footer {
+    grid-area: 12/1/13/4;
     display: flow-root;
-    margin-top: 4rem;
   }
 }
 
@@ -83,7 +120,7 @@ button {
   padding: 0.4rem;
   color: hsl(var(--clr-black));
   background-color: hsl(var(--clr-white));
-  &:is(:hover, :focus) {
+  &:hover {
     color: hsl(var(--clr-white));
     background-color: hsl(var(--clr-black));
   }
