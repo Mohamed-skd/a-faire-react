@@ -17,6 +17,8 @@
       );
       transition: all 0.2s;
       &.active {
+        translate: 0 4rem;
+        rotate: 360deg;
         background: linear-gradient(
           135deg,
           transparent 40%,
@@ -45,7 +47,7 @@
     display: grid;
     gap: 0.4rem;
     margin: auto;
-    padding-inline: 0.4rem;
+    padding: 1rem 0.4rem;
     max-width: 40rem;
     height: 100%;
     @media (width>40rem) {
@@ -54,10 +56,17 @@
     }
 
     & > * {
-      padding: 0.4rem;
+      margin: 0;
+      padding: 0.6rem;
       width: 100%;
       font-weight: bold;
       text-align: center;
     }
   }
+}
+
+#copyright {
+  margin-right: 2rem;
+  color: currentColor;
+  float: right;
 }

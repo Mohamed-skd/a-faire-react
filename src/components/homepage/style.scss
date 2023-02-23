@@ -1,0 +1,42 @@
+#homepage {
+  #todo-list {
+    margin-top: 2rem;
+
+    aside {
+      margin-right: 1rem;
+
+      button {
+        float: right;
+        padding-inline: 1.4rem;
+      }
+    }
+
+    ul {
+      margin: 2rem auto;
+
+      .task {
+        label {
+          padding: 0.4rem 0.8rem;
+          width: 100%;
+          justify-content: space-between;
+          box-shadow: inset 0 0 0.2rem 0.1rem currentColor;
+
+          span {
+            margin: auto;
+            font-weight: bold;
+          }
+          input {
+            width: 2rem;
+            aspect-ratio: 1/1;
+            flex-shrink: 0;
+          }
+        }
+
+        button {
+          flex-shrink: 0;
+          border-radius: 0.2rem;
+        }
+      }
+    }
+  }
+}

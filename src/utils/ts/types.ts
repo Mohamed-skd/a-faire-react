@@ -9,7 +9,7 @@ export type task = {
   id: string;
   content: string;
   completed: boolean;
-  collection: string;
+  category: string;
 };
 
 export type tasks = task[] | [];

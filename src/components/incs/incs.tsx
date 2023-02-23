@@ -1,13 +1,14 @@
-import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { useRouteError } from "react-router-dom";
 import { useTaskstore } from "../../app.js";
-import { routeError, task, tasks } from "../../utils/ts/types.js";
+import { routeError, task } from "../../utils/ts/types.js";
 import "./style.scss";
 
 export function AddTask() {
   const [task, setTask] = useState("");
-  const [collection, setCollection] = useState("");
+  const [cat, setCat] = useState("");
   const addTask = useTaskstore((s) => s.addTodo);
+  const input = useRef<HTMLInputElement>(null);
 
   const handleInput = (e: ChangeEvent) => {
     const input = e.target as HTMLInputElement;
@@ -15,27 +16,29 @@ export function AddTask() {
   };
   const handleList = (e: ChangeEvent) => {
     const datalist = e.target as HTMLInputElement;
-    setCollection(datalist.value);
+    setCat(datalist.value);
   };
   const addTodo = (e: FormEvent) => {
     e.preventDefault();
-    if (!task || task === " " || !collection || collection === " ") return;
+    if (!task || task === " " || !cat || cat === " ") return;
 
     const newTask: task = {
       id: crypto.randomUUID(),
       completed: false,
       content: task.trim(),
-      collection: collection.trim(),
+      category: cat.trim(),
     };
 
     addTask(newTask);
     setTask("");
+    input.current?.focus();
   };
 
   return (
     <aside id="add-task">
       <form onSubmit={addTodo}>
         <input
+          ref={input}
           type="text"
           name="task"
           id="task"
@@ -44,12 +47,12 @@ export function AddTask() {
           placeholder="Nouvelle tâche ..."
         />
         <input
-          list="collections"
-          value={collection}
+          list="categories"
+          value={cat}
           onChange={handleList}
-          placeholder="Collection"
+          placeholder="Catégorie"
         />
-        <datalist id="collections">
+        <datalist id="categories">
           <option value="Travail" />
           <option value="Famille" />
           <option value="Sport" />
@@ -58,108 +61,6 @@ export function AddTask() {
         <button className="link">Ajouter</button>
       </form>
     </aside>
-  );
-}
-
-function Task({ task }: { task: task }) {
-  const { id, content, completed } = task;
-  const updateTask = useTaskstore((s) => s.updateTodo);
-  const deleteTask = useTaskstore((s) => s.deleteTodo);
-
-  const updateTodo = (e: ChangeEvent) => {
-    const input = e.target as HTMLInputElement;
-    const checked = input.checked;
-    const newTodo: task = {
-      ...task,
-      completed: checked,
-    };
-    updateTask(id, newTodo);
-  };
-  const deleteTodo = (e: MouseEvent) => {
-    const bt = e.target as HTMLButtonElement;
-    const id = bt.dataset.id!;
-    deleteTask(id);
-  };
-
-  return (
-    <li>
-      <label>
-        {content}
-        <input
-          defaultChecked={completed}
-          type="checkbox"
-          name="check-task"
-          id="check-task"
-          onChange={updateTodo}
-        />
-      </label>
-      <button onClick={deleteTodo} className="link" data-id={id}>
-        ❌
-      </button>
-    </li>
-  );
-}
-export function TodoList({ tasks }: { tasks: tasks }) {
-  const [todoList, setTodoList] = useState([] as tasks);
-  const deleteTask = useTaskstore((s) => s.deleteTodo);
-
-  const handleView = (e: MouseEvent) => {
-    const bt = e.target as HTMLButtonElement;
-    const status = bt.textContent!;
-
-    switch (status) {
-      case "Tout":
-        setTodoList(tasks);
-        break;
-      case "Fait":
-        setTodoList(tasks.filter((task) => task.completed));
-        break;
-      case "À faire":
-        setTodoList(tasks.filter((task) => !task.completed));
-        break;
-    }
-  };
-  const deleteAll = () => {
-    const ok = confirm(
-      "Voulez vous vraiment supprimer cette liste de tâches ?"
-    );
-    if (!ok) return;
-
-    tasks.forEach((task) => deleteTask(task.id));
-  };
-
-  useEffect(() => {
-    setTodoList(tasks);
-  }, [tasks]);
-
-  return (
-    <article>
-      <>
-        <aside>
-          <button onClick={handleView} className="link">
-            Tout
-          </button>
-          <button onClick={handleView} className="link">
-            Fait
-          </button>
-          <button onClick={handleView} className="link">
-            À faire
-          </button>
-        </aside>
-
-        <ul>
-          {todoList.map((task) => (
-            <Task key={task.id} task={task} />
-          ))}
-        </ul>
-
-        <aside>
-          <button onClick={deleteAll} className="link">
-            Supprimer
-          </button>
-        </aside>
-      </>
-    </article>
   );
 }
 
