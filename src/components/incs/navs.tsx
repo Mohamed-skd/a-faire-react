@@ -35,7 +35,7 @@ export default function PageNav() {
         </li>
         {cats.map((cat, key) => (
           <li key={key}>
-            <Link onClick={() => hideNav()} className="link" to={cat}>
+            <Link onClick={() => hideNav()} className="link" to={`/${cat}`}>
               {cat}
             </Link>
           </li>
