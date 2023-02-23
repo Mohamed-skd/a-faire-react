@@ -34,7 +34,6 @@ export const router = createBrowserRouter(
         <Route index element={<HomePage />} />
         <Route path="/:id" element={<HomePage />} />
       </Route>
-      <Route path="*" element={<Navigate to={"/"} replace={true} />} />
     </Route>
   )
 );
