@@ -30,7 +30,6 @@ function Task({ task }: { task: task }) {
           defaultChecked={completed}
           type="checkbox"
           name="check-task"
-          id="check-task"
           onChange={updateTodo}
         />
       </label>
